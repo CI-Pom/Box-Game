@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Box Game</title>
+</head>
+<body>
+    <h1>The Box Game</h1>
+    <p>Bienvenue sur un petit jeu de boite. <br>
+    Vous allez devoir cliquer sur chaque boite dans l'ordre croissant des numéros. <br>
+    Amusez vous bien ^^ <br></p>
+    <div id="board"></div>
+
+    <script>
+
+        const box = document.createElement("div") //on créé une variable boite qui créée une balise div
+        box.classList.add("box") //on ajoute la classe box à la div créée
+
+        const board = document.querySelector("#board")
+        let nb = 0 //Un variable qui gardera en mémoire le numéro de la boite
+        let nbBox = window.prompt("Combien de boite?") //on demande à l'utilisateur avec combien de boite il aimerait jouer ^^
+
+        for(let i = 1; i <= nbBox; i++){
+            let clone = box.cloneNode() //on fait une copie de la box modèle
+            clone.innerText = i //on lui ajoute un numéro à l'intérieur 
+
+            clone.addEventListener("click", function(){ // on ajoute a partir d'ici ceux qui se passera lorsqu'on clic sur la boite
+                clone.classList.add("box-clicked") //on ajoute une classe "box-clicked" sur la boite qu'on vient de cliquer
+                melange() // on mélange les boite à chaque clic
+                if(nb+1 == board.children.length){ 
+                    window.alert("Vous avez gagné ^^") //lorsqu'on a fini le jeu donc cliqué sur la dernière boite
+                } else if((nb+1) == i){
+                    nb++ //garde en mémoire le chiffre de la boite que l'on vient de cliquer
+                } else if((nb+1)>i){
+                    window.alert("Attention déjà cliqué ;p") //si l'on clique sur une boite déjà validé
+                } else{
+                    window.alert("Ah NON! c'est faux. Recommence!") //lorsqu'on se trompe dans le sens des chiffres
+                    board.querySelectorAll(".box-clicked").forEach(box=>box.classList.remove("box-clicked")) //supprime la classe "box-clicked" de toutes les boites déjà validés
+                    nb = 0 //remet le chiffre à 0 et oblige donc le joueur à recommencer
+                }
+            })
+            board.appendChild(clone) //on le place en tant qu'enfant du #board
+            melange() // on mélange les boites une première fois 
+        }
+
+        /* https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle */
+        /* déplace les box selon un index aléatoire */
+        function melange(){
+            for (var i = board.children.length; i >= 0; i--) {
+                board.appendChild(board.children[Math.random() * i | 0]);
+            }    
+        }
+
+    </script>
+
+</body>
+</html>
