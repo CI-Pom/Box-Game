@@ -1,0 +1,51 @@
+body{
+    background-color: #ccc;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+}
+
+h1{
+    color: #A60000;
+    margin: 1.5em 0 0 0;
+}
+
+p{
+    font-size: 1.5em;
+    margin: 0 0 1.5em 0;
+}
+
+#board{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.box{ /*le style de la boite de base*/
+    width: 75px;
+    height: 75px;
+    border: 1px solid black;
+    background-color: #DD5AF0;
+    box-shadow: 5px 5px 5px #F8527B;
+    font-size: 3em;
+    text-align: center;
+    line-height: 75px;
+    margin: 5px;
+    animation: appear 1s;
+    border-radius: 6px;
+}
+
+.box-clicked{ /*le style de la boite validé*/
+    background-color: #1AF036;
+    box-shadow: 5px 5px 5px #0FF8B2;
+    color: #616161;
+}
+
+@keyframes appear{ /*petite animation pour les boites*/
+    from{
+        transform: scale(0) rotate(180deg)
+    }
+    to{
+        transform: scale(1) rotate(0deg)
+    }
+}
